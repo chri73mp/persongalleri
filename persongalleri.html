@@ -14,7 +14,17 @@
             box-sizing: border-box;
         }
 
-        @media screen and (max-width: 992px) {
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            color: grey;
+        }
+
+        h2 {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 1200px) {
             main {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
@@ -34,6 +44,19 @@
                 object-fit: contain;
             }
         }
+
+        @media (max-width: 600px) {
+            main {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            img {
+                max-width: 50%;
+                aspect-ratio: 1/1;
+                object-fit: contain;
+            }
+        }
     </style>
 </head>
 
@@ -43,10 +66,11 @@
     <template>
         <article>
             <img src="" alt="" class="billede">
-            <h2 class="navn"></h2>
+            <h2 class="fornavn"></h2>
             <p class="titel"></p>
             <p class="hobby"></p>
             <p class="fødselsdag"></p>
+            <p class="troende"></p>
         </article>
     </template>
 
@@ -65,23 +89,21 @@
             vis(json);
         }
 
-        const main = document.querySelector("main");
-        const template = document.querySelector("template").content;
 
         function vis(json) {
+            const main = document.querySelector("main");
+            const template = document.querySelector("template").content;
             console.log(json)
             json.forEach(person => {
                 const klon = template.cloneNode(true);
                 klon.querySelector(".billede").src = "billeder/" + person.billede;
-                klon.querySelector(".navn").textContent = person.navn;
+                klon.querySelector(".fornavn").textContent = person.fornavn;
                 klon.querySelector(".titel").textContent = person.titel;
                 klon.querySelector(".hobby").textContent = person.hobby;
                 klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
+                klon.querySelector(".troende").textContent = person.troende;
                 main.appendChild(klon)
-
-
             })
-
         }
 
         hentData();
